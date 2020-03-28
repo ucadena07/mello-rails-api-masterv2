@@ -2,6 +2,7 @@ const $logoutButton = $('#logout');
 const $newBoardButton = $('#new-board');
 const $boatNameInput = $('#board-name');
 const $saveBoardButton = $('#save-board');
+const $boardContainer = $('.boards')
 
 let user;
 
@@ -17,6 +18,31 @@ function init() {
   }
 
   $('.welcome h1').text('Welcome ' + user.email + '!');
+
+  getUserBoards();
+}
+
+function getUserBoards(){
+  $.ajax({
+    url: `/api/users/${user.id}`,
+    method: 'GET'
+  }).then(function(data) {
+    renderBoards(data.boards)
+  });
+}
+
+function renderBoards(boards) {
+  $boardContainer.empty();
+
+  let $boardTiles = boards.map(function(board) {
+    let $boardTile = $('<a class="board-tile">')
+      .attr('href', `/boards/${board.id}`)
+      .text(board.name);
+
+    return $boardTile;
+  });
+
+  $boardContainer.append($boardTiles);
 }
 
 function handleBoardCreate(event) {
@@ -26,8 +52,20 @@ function handleBoardCreate(event) {
 
   $newBoardButton.val('');
 
-  console.log(boardName);
+  if (!boardName) {
+    return;
+  }
 
+  $.ajax({
+    url: '/api/boards',
+    data: {
+      name: boardName
+    },
+    method: 'POST'
+  }).then(function() {
+    getUserBoards();
+    MicroModal.close('create-board');
+  });
 }
 
 function handleLogout() {
