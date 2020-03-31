@@ -1,24 +1,12 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# A TRELLO clone.
+A static version of the Mello board using vanilla JavaScript
+<br />
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Board selection and creation.
+<br />
+<img src="/mellob.png" alt="mello boards">
+<br />
+Board's cards.
+<img src="/mellov2.png" alt="mello task">
